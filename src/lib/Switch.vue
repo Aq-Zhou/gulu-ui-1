@@ -15,7 +15,12 @@ export default {
             // this.$emit()
         }
         return {toggle}
-    }
+    },
+    methods: {
+        x(){
+            this.$emit()
+        }
+    },
 }
 </script>
 
