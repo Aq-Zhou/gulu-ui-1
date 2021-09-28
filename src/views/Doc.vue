@@ -1,8 +1,8 @@
 <template>
-    <div class="layout">
-        <Topnav class="nav" />
-        <div class="content">
-        <aside v-if="menuVisible">
+  <div class="layout">
+    <Topnav class="nav" />
+    <div class="content">
+      <aside v-if="menuVisible">
         <h2>组件列表</h2>
         <ol>
           <li>
@@ -18,22 +18,22 @@
             <router-link to="/doc/tabs">Tabs 组件</router-link>
           </li>
         </ol>
-        </aside>
-            <main>
-                <router-view />
-            </main>
-        </div>
+      </aside>
+      <main>
+        <router-view />
+      </main>
     </div>
+  </div>
 </template>
 <script lang="ts">
 import Topnav from "../components/Topnav.vue";
-import { inject, Ref } from 'vue';
+import { inject, Ref } from "vue";
 export default {
-    components: { Topnav },
-    setup(){
-        const menuVisible = inject<Ref<boolean>>('menuVisible');  //GET
-        return {menuVisible};
-    },
+  components: { Topnav },
+  setup() {
+    const menuVisible = inject<Ref<boolean>>("menuVisible"); // get
+    return { menuVisible };
+  },
 };
 </script>
 <style lang="scss" scoped>
