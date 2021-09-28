@@ -1,13 +1,6 @@
 <template>
     <div>
         <Topnav />
-        <div class="topnav">
-            <div class="logo">LOGO</div>
-            <ul class="menu">
-                <li>菜单1</li>
-                <li>菜单2</li>
-            </ul>
-        </div>
         <div class="banner">
             <h1>轱辘UI</h1>
             <h2>UI框架</h2>
@@ -28,10 +21,10 @@ export default {
 .banner{
     padding: 100px 0;
     display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: lightgreen;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: lightgreen;
   > .actions{
     padding: 8px 0;
     a {
