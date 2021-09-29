@@ -11,9 +11,9 @@
     </div>
     <h1>示例2</h1>
     <div>
-        <Button size="big">大大</Button>
-        <Button>正常</Button>
-        <Button size="small">小小</Button>
+        <Button size="big" :theme="text">大大</Button>
+        <Button :theme="text">正常</Button>
+        <Button size="small" :theme="text">小小</Button>
     </div>
 </template>
 <script lang="ts">
