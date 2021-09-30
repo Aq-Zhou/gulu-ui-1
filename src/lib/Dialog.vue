@@ -4,10 +4,9 @@
     @click="close"></div>
     <div class="gulu-dialog-wrapper">
         <div class="gulu-dialog">
-        <header>标题<span @click="close" class="gulu-dialog-close"></span></header>
+        <header><slot name="title"><span @click="close" class="gulu-dialog-close"></span></header>
         <main>
-            <p>Hello</p>
-            <p>Hi</p>
+            <slot name="content"/>
         </main>
         <footer>
             <Button level="main">OK</Button>
