@@ -18,20 +18,14 @@
       <div class="gulu-tabs-nav-indicator" ref="indicator"></div>
     </div>
     <div class="gulu-tabs-content">
-      <component
-        class="gulu-tabs-content-item"
-        :class="{ selected: c.props.title === selected }"
-        v-for="c in defaults"
-        :is="c"
-        :key="c"
-      />
+      <component :is="current" :key="current.props.title" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Tab from "./Tab.vue";
-import { computed, ref, onMounted, onUpdated, watchEffect } from "vue";
+import { computed, ref, onMounted, watchEffect } from "vue";
 export default {
   props: {
     selected: {
@@ -42,13 +36,15 @@ export default {
     const selectedItem = ref<HTMLDivElement>(null);
     const indicator = ref<HTMLDivElement>(null);
     const container = ref<HTMLDivElement>(null);
-    watchEffect(() => {
-      const { width } = selectedItem.value.getBoundingClientRect();
-      indicator.value.style.width = width + "px";
-      const { left: left1 } = container.value.getBoundingClientRect();
-      const { left: left2 } = selectedItem.value.getBoundingClientRect();
-      const left = left2 - left1;
-      indicator.value.style.left = left + "px";
+    onMounted(() => {
+      watchEffect(() => {
+        const { width } = selectedItem.value.getBoundingClientRect();
+        indicator.value.style.width = width + "px";
+        const { left: left1 } = container.value.getBoundingClientRect();
+        const { left: left2 } = selectedItem.value.getBoundingClientRect();
+        const left = left2 - left1;
+        indicator.value.style.left = left + "px";
+      });
     });
 
     const defaults = context.slots.default();
@@ -58,10 +54,7 @@ export default {
       }
     });
     const current = computed(() => {
-      console.log("重新 return");
-      return defaults.filter((tag) => {
-        return tag.props.title === props.selected;
-      })[0];
+      return defaults.find((tag) => tag.props.title === props.selected);
     });
     const titles = defaults.map((tag) => {
       return tag.props.title;
@@ -70,9 +63,9 @@ export default {
       context.emit("update:selected", title);
     };
     return {
+      current,
       defaults,
       titles,
-      current,
       select,
       selectedItem,
       indicator,
@@ -86,11 +79,13 @@ export default {
 $blue: #40a9ff;
 $color: #333;
 $border-color: #d9d9d9;
+
 .gulu-tabs {
   &-nav {
     display: flex;
     color: $color;
     border-bottom: 1px solid $border-color;
+    position: relative;
     &-item {
       padding: 8px 0;
       margin: 0 16px;
@@ -112,16 +107,9 @@ $border-color: #d9d9d9;
       transition: all 250ms;
     }
   }
+
   &-content {
     padding: 8px 0;
-
-    &-item {
-      display: none;
-
-      &.selected {
-        display: block;
-      }
-    }
   }
 }
 </style>
